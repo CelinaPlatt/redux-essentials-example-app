@@ -1,16 +1,30 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
 
 const initialState = [
-  { id: '1', title: 'First Post!', content: 'Hello!', reactions: {thumbsUp: 0, hooray: 0} },
-  { id: '2', title: 'Second Post', content: 'More text', reactions: {thumbsUp: 1, hooray: 0} }
+  {
+    id: '1', title: 'First Post!', content: 'Hello!', reactions: {
+      thumbsUp: 0,
+      hooray: 0,
+      heart: 0,
+      rocket: 0,
+      eyes: 0
+    }
+  },
+  { id: '2', title: 'Second Post', content: 'More text', reactions: {
+    thumbsUp: 0,
+    hooray: 0,
+    heart: 0,
+    rocket: 0,
+    eyes: 0
+  } }
 ]
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    reactionAdded(state,action){
-      const { postId, reaction} = action.payload
+    reactionAdded(state, action) {
+      const { postId, reaction } = action.payload
       const existingPost = state.find(post => post.id === postId)
       if (existingPost) {
         existingPost.reactions[reaction]++
@@ -28,7 +42,13 @@ const postsSlice = createSlice({
             title,
             content,
             user: userId,
-            reactions: {thumbsUp: 0, hooray: 0}
+            reactions: {
+              thumbsUp: 0,
+              hooray: 0,
+              heart: 0,
+              rocket: 0,
+              eyes: 0
+            }
           }
         }
       }
