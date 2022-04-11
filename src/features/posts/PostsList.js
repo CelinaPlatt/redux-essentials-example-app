@@ -10,7 +10,7 @@ import { TimeAgo } from './TimeAgo'
 import {
   selectAllPosts,
   fetchPosts,
-  selectPostsIds,
+  selectPostIds,
   selectPostById
 } from './postsSlice'
 
@@ -33,7 +33,7 @@ let PostExcerpt = ({ postId }) => {
 
 export const PostsList = () => {
   const dispatch = useDispatch()
-  const orderedPostIds = useSelector(selectPostsIds)
+  const orderedPostIds = useSelector(selectPostIds)
 
   const postStatus = useSelector(state => state.posts.status)
   const error = useSelector(state => state.posts.error)
@@ -49,7 +49,6 @@ export const PostsList = () => {
   if (postStatus === 'loading') {
     content = <Spinner text='Loading...' />
   } else if (postStatus === 'succeeded') {
-
     content = orderedPostIds.map(postId => (
       <PostExcerpt key={postId} postId={postId} />
     ))
