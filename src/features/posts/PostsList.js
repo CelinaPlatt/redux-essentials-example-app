@@ -7,9 +7,16 @@ import { PostAuthor } from './PostAuthor'
 import { ReactionButtons } from './ReactionButtons'
 import { TimeAgo } from './TimeAgo'
 
-import { selectAllPosts, fetchPosts } from './postsSlice'
+import {
+  selectAllPosts,
+  fetchPosts,
+  selectPostsIds,
+  selectPostById
+} from './postsSlice'
 
-let PostExcerpt = ({ post }) => {
+let PostExcerpt = ({ postId }) => {
+  const post = useSelector(state => selectPostById(state, postId))
+
   return (
     <article className='post-excerpt' key={post.id}>
       <h3>{post.title}</h3>
@@ -26,7 +33,7 @@ let PostExcerpt = ({ post }) => {
 
 export const PostsList = () => {
   const dispatch = useDispatch()
-  const posts = useSelector(selectAllPosts)
+  const orderedPostIds = useSelector(selectPostsIds)
 
   const postStatus = useSelector(state => state.posts.status)
   const error = useSelector(state => state.posts.error)
@@ -39,15 +46,12 @@ export const PostsList = () => {
 
   let content
 
-  if ( postStatus === 'loading') {
+  if (postStatus === 'loading') {
     content = <Spinner text='Loading...' />
   } else if (postStatus === 'succeeded') {
-    const orderedPosts = posts
-    .slice()
-    .sort((a,b) => b.date.localeCompare(a.date))
 
-    content = orderedPosts.map(post => (
-      <PostExcerpt key={post.id} post={post} />
+    content = orderedPostIds.map(postId => (
+      <PostExcerpt key={postId} postId={postId} />
     ))
   } else if (postStatus === 'failed') {
     content = <div>{error}</div>
