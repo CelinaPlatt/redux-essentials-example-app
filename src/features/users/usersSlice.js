@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import {client} from '../../api/client'
+import { client } from '../../api/client'
 
 const initialState = []
 
@@ -13,10 +13,13 @@ const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchUsers.fulfilled, (state,action) => {
+    builder.addCase(fetchUsers.fulfilled, (state, action) => {
       return action.payload
     })
   }
 })
 
 export default usersSlice.reducer
+
+export const selectAllUsers = state => state.users
+
