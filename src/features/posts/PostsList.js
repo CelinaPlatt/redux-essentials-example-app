@@ -8,7 +8,6 @@ import { ReactionButtons } from './ReactionButtons'
 import { TimeAgo } from './TimeAgo'
 
 import {
-  selectAllPosts,
   fetchPosts,
   selectPostIds,
   selectPostById
