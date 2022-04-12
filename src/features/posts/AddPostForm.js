@@ -13,19 +13,18 @@ export const AddPostForm = () => {
   const dispatch = useDispatch()
 
   const users = useSelector(selectAllUsers)
-  console.log(users ,"userss <<<<<<<<")
 
   const onTitleChanged = e => setTitle(e.target.value)
   const onContentChanged = e => setContent(e.target.value)
   const onAuthorChanged = e => setUserId(e.target.value)
 
-  const canSave = [title,content, userId].every(Boolean) && addRequestStatus === 'idle'
+  const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle'
 
   const onSavePostClicked = async () => {
     if (canSave) {
-      try{
+      try {
         setAddRequestStatus('pending')
-        await dispatch(addNewPost({title,content,user: userId})).unwrap()
+        await dispatch(addNewPost({ title, content, user: userId })).unwrap()
         setTitle('')
         setContent('')
         setUserId('')
@@ -56,7 +55,7 @@ export const AddPostForm = () => {
           value={title}
           onChange={onTitleChanged}
         />
-          <label htmlFor="postAuthor">Author:</label>
+        <label htmlFor="postAuthor">Author:</label>
         <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
           <option value=""></option>
           {usersOptions}
